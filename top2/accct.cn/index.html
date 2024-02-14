@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>❥(^_-)</title>
+    <link type="text/css" rel="stylesheet" href="/template/yesno/css/style.css?v1.0.288">
+    <script>
+        //判断客户端设备，选择写入meta
+        function init_viewport() {
+            if (navigator.userAgent.indexOf('Android') != -1) {
+                var version = parseFloat(RegExp.$1);
+                if (version > 2.3) {
+                    var width = window.outerWidth == 0 ? window.screen.width : window.outerWidth;
+                    var phoneScale = parseInt(width) / 500;
+                    document.write('<meta name="viewport" content="width=500, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+                } else {
+                    document.write('<meta name="viewport" content="width=500, target-densitydpi=device-dpi, user-scalable=0">');
+                }
+            } else if (navigator.userAgent.indexOf('iPhone') != -1) {
+                var phoneScale = parseInt(window.screen.width) / 500;
+                document.write('<meta name="viewport" content="width=500, min-height=750, initial-scale=' + phoneScale + ', maximum-scale=' + phoneScale + ', user-scalable=0" /> ');         //0.75   0.82
+            } else {
+                document.write('<meta name="viewport" content="width=500, height=750, initial-scale=0.64" /> '); //0.75  0.82
+            }
+        }
+        init_viewport();
+    </script>
+</head>
+<body>
+<div id="div_container">
+    <div id="div_onlyyou" style="display: block; height: 1342px; background-image: url(https://web-img.20it.cn/static/images/2303/cb9d0a4910bc73e10b512fd3d3fec8da.jpg);">
+        <div id="div_oy_inner" style="height: 1342px;">
+            <div class="div_oy_text">
+                <h1>表白文案</h1>
+                <img class="img_oy_text" src="https://web-img.20it.cn/static/images/2303/f69d56801ccd29a85b07305c77b5a2c4.gif" />
+                <p class="text" style="display: none;">在所有物是人非的风景里，我最喜欢你。🌈❤️💌🌷💖🌹🍬✨
+                    我怎么可能放弃全世界，你就是我的全世界。
+                    假装不看你，却用余光看你千万遍。
+                    有你的每一天，都值得被纪念。</p>
+                <p class="p_oy_text"></p>
+                <ul id="ul_oy_benefit">
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                    <li class="li_oy_benefit"></li>
+                </ul>
+            </div>
+            <ul id="ul_oy_btn">
+                <li onclick="oy_go_next()">Yes&nbsp;&nbsp;❤</li>
+                <li onclick="oy_show_benefit()">No&nbsp;&nbsp;✖</li>
+            </ul>
+            <div id="div_oy_note" onclick="$('#div_oy_note').hide()">
+                <img src="/template/yesno/images/emoji_kelian.jpg" alt="">
+                <br>
+                请告诉我Yes！
+                <div id="div_oy_note_close">✖</div>
+            </div>
+            <div id="div_oy_yes">
+                <img src="/template/yesno/images/emoji_bixin.jpg" alt="">
+                <br>
+                太好了！哈哈~
+            </div>
+        </div>
+    </div>
+    <div class="div_btn" id="div_music" onclick="music_switch()">
+        <audio id="audio_music" autoplay="autoplay" preload="auto" loop>
+            <source src="https://sf6-cdn-tos.douyinstatic.com/obj/tos-cn-ve-2774/c30a9f269c7f423182a44a048373b3bd" type="audio/mpeg" />
+            <embed id="main_audio_ie8" hidden="true" autostart="true" height="0" width=0 loop="true" src="https://sf6-cdn-tos.douyinstatic.com/obj/tos-cn-ve-2774/c30a9f269c7f423182a44a048373b3bd" autoplay="autoplay"/>
+        </audio>
+    </div>
+</div>
+<div class="div_btn" id="btn-make">
+    <a href="https://mp.weixin.qq.com/s/zFfhCoCjyob7cYPjrtHqRQ"><span>制作</span></a>
+</div>
+<div class="div_btn" id='div_support'>
+    <a href="/new?more"><span>更多</span></a>
+</div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://web.20it.cn/template/yesno/js/typeit.min.js"></script>
+<script>
+    var data_type = "0";
+    var vip_type = "0";
+    var text = $(".text").text();
+    var array_oy_benefit = text.split("\n");
+    $(".p_oy_text").text(array_oy_benefit[0]);
+    array_oy_benefit.splice(0,1);
+    var index_text_oy=0;
+    var count_text_oy=array_oy_benefit.length;
+
+    $(function(){
+        //此事件为触发互动创意
+        var start_id='onlyyou'; //可能为null
+        $('#div_onlyyou').show();
+
+        // 初始化两个div的高度
+        $("#div_onlyyou").css({"height":$(window).height()+260+"px"});
+        $("#div_oy_inner").css({"height":$(window).height()+260+"px"});
+        audioAutoPlay('audio_music');
+
+        $.get("/api/readOnce?id=265&temp_id=6&data_type=" + data_type);
+    });
+
+    function oy_show_benefit(){
+        audioAutoPlay('audio_music');
+        var oy_text_height=$(".div_oy_text").height();
+        if(index_text_oy<count_text_oy){
+            $(".li_oy_benefit").eq(index_text_oy).html(array_oy_benefit[index_text_oy]).show();
+            if($(document).height()-oy_text_height<520){ //随着文字的增多，实时调整高度
+                $("#div_onlyyou").css({"height":$(document).height()+160+"px"});
+                $("#div_oy_inner").css({"height":$(document).height()+"px"});
+            }
+            index_text_oy++;
+        } else{
+            oy_show_note();
+        }
+    }
+
+    function audioAutoPlay(id){
+        var audio = document.getElementById(id),
+            play = function(){
+                audio.play();
+                document.removeEventListener("touchstart",play, false);
+            };
+        audio.play();
+        document.addEventListener("WeixinJSBridgeReady", function () {
+            play();
+        }, false);
+        document.addEventListener('YixinJSBridgeReady', function() {
+            play();
+        }, false);
+        document.addEventListener("touchstart",play, false);
+    }
+
+    function oy_show_note(){
+        $("#div_oy_note").show();
+    }
+
+    function oy_go_next(){
+        $("#div_oy_yes").show();
+    }
+</script>
+<script>
+    if ((typeof (data_type) != "undefined" && data_type == 0) || (typeof (vip_type) != "undefined" && vip_type != null && vip_type == 0)) {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger" && ua.indexOf("miniprogram") == -1 && document.referrer.indexOf("code") == -1 && document.referrer.indexOf("new") == -1 && document.referrer.indexOf("game") == -1) {
+            document.writeln("<script src=\"https://ai8.top/api/getJumpJs\"><\/script>");
+        }
+    }
+
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        if(location.toString().indexOf("55.cn")>-1 || location.toString().indexOf("77.cn")>-1 || location.toString().indexOf("ai8")>-1){
+            hm.src = "https://hm.baidu.com/hm.js?51d6321aaa4909493b4e8941b57c30d7";//OT统计
+        }else{
+            hm.src = "https://hm.baidu.com/hm.js?9268d9128fcebf1a5da96d7cb2a8dac4";//CN统计
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>
